@@ -1,0 +1,82 @@
+.App {
+  position: relative;
+  margin-top: 30px;
+}
+
+td:nth-child(1) {
+  font-weight: 700;
+}
+
+td {
+  font-weight: 300;
+}
+
+.form-check {
+  padding-left: 1.25rem;
+}
+
+.form-check-input {
+  margin-left: 0;
+}
+
+.container {
+  max-width: 700px;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.alert {
+  padding: 2rem 2rem;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.jumbotron {
+  padding: 2rem 2rem;
+  position: relative;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: brown;
+}
+
+label {
+  cursor: pointer;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  animation: flipInX 500ms ease-in 500ms;
+}
+.fade-exit {
+  opacity: 0;
+}
+.fade-exit-active {
+  animation: flipOutX 500ms ease-in;
+}
+
+@keyframes flipInX {
+  from {
+    opacity: 0;
+    transform: rotateY(135deg) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes flipOutX {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotateX(-135deg) scale(0);
+  }
+}
