@@ -1,43 +1,42 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class ResultTest extends Component {
-
   render() {
-
-    const {questions, answers} = this.props;
+    const { questions, answers } = this.props;
 
     const arrayQuestionsGood = questions.map(el => {
       return el.good;
     });
 
     const result = arrayQuestionsGood.map((el, i) => {
-      if(typeof el === 'object') {
-        let a;
-        let b;
+      // если текущий элемент массива не примитивный тип
+      if (typeof el === 'object') {
+        let correctAnswerToString;
+        let answerToString;
+        // формируем строку из массива правильных отвтетов
         el.forEach((el, j) => {
-
-          if(j === 0) {
-            a =  el;
+          if (j === 0) {
+            correctAnswerToString = el;
           } else {
-            a += ', ' + el;
+            correctAnswerToString += ', ' + el;
           }
 
-        answers[i].forEach((el, j) => {
-          if(j === 0) {
-            b =  el;
-          } else {
-            b += ', ' + el;
-          }
-        })
-          
+          // формируем строку из массива ответов пользователя
+          answers[i].forEach((el, j) => {
+            if (j === 0) {
+              answerToString = el;
+            } else {
+              answerToString += ', ' + el;
+            }
+          });
         });
         return (
           <tr key={el}>
             <td scope="row">{questions[i].title}</td>
-            <td>{b}</td>
-            <td>{a}</td>
+            <td>{answerToString}</td>
+            <td>{correctAnswerToString}</td>
           </tr>
-        )
+        );
       }
       return (
         <tr key={el}>
@@ -45,7 +44,7 @@ class ResultTest extends Component {
           <td>{answers[i]}</td>
           <td>{el}</td>
         </tr>
-      )
+      );
     });
 
     return (
@@ -57,9 +56,7 @@ class ResultTest extends Component {
             <th scope="col">Правильные ответ</th>
           </tr>
         </thead>
-        <tbody>
-          {result}
-        </tbody>
+        <tbody>{result}</tbody>
       </table>
     );
   }

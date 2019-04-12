@@ -1,55 +1,33 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import questions from "../src/question/question";
+import questions from '../src/question/question';
 
-import CheckboxGroup from "../src/components/CheckboxGroup";
-import RadioGroup from "../src/components/radioGroup";
-import ResultTest from "../src/components/resultTest";
+import CheckboxGroup from '../src/components/CheckboxGroup';
+import RadioGroup from '../src/components/radioGroup';
+import ResultTest from '../src/components/resultTest';
 
-import "./styles.css";
+import './styles.css';
 
 class App extends Component {
   state = {
     questions,
     currentIndex: 0,
     answers: [],
-
-    toggle: true,
-    index: 0,
-    disabled: false
   };
-
-  /*
-  onToggle = () => {
-    setTimeout(() => {
-      this.setState(prevState => {
-        return {
-          disabled: !prevState.disabled
-        };
-      });
-    }, 1000);
-    this.setState({
-      toggle: !this.state.toggle,
-      index: Math.random(),
-      disabled: !this.state.disabled,
-      currentIndex: ++this.state.currentIndex
-    });
-  };
-  */
 
   onRadioChange = val => {
-    //принимаем значение от ребенка
+    //принимаем значение от child
     const value = val;
     this.setState(({ answers, currentIndex }) => {
-      //создаем новый массив из стейта
+      //создаем новый массив из state
       const newAnswers = [...answers];
       //записываем значение в новый массив
       newAnswers.splice(currentIndex, 1, value);
       //обновляем состояние
       return {
-        answers: newAnswers
+        answers: newAnswers,
       };
     });
   };
@@ -57,13 +35,8 @@ class App extends Component {
   nextQuestion = () => {
     this.setState(prevState => {
       let newCurrentIndex = prevState.currentIndex;
-      /*
-      if (newCurrentIndex >= questions.length - 1) {
-        newCurrentIndex = -1;
-      }
-      */
       return {
-        currentIndex: (newCurrentIndex += 1)
+        currentIndex: (newCurrentIndex += 1),
       };
     });
   };
@@ -74,34 +47,25 @@ class App extends Component {
     const propsToComponentQuestion = {
       question: questions[currentIndex],
       onRadioChange: this.onRadioChange,
-      nextQuestion: this.nextQuestion
+      nextQuestion: this.nextQuestion,
     };
 
     const propsToResult = {
       answers,
-      questions
+      questions,
     };
 
     let content;
 
     if (currentIndex >= questions.length) {
       content = <ResultTest {...propsToResult} />;
-    } else if (questions[currentIndex].type === "radio") {
+    } else if (questions[currentIndex].type === 'radio') {
       content = <RadioGroup {...propsToComponentQuestion} />;
-    } else if (questions[currentIndex].type === "checkbox") {
+    } else if (questions[currentIndex].type === 'checkbox') {
       content = <CheckboxGroup {...propsToComponentQuestion} />;
     } else {
       content = <div>fenita lya comedia</div>;
     }
-
-    /*
-    const com1 =
-      questions[currentIndex].type === "radio" ? (
-        <RadioGroup {...prop} />
-      ) : (
-        <CheckboxGroup {...prop} />
-      );
-    */
 
     return (
       <>
@@ -110,8 +74,7 @@ class App extends Component {
             <CSSTransition
               key={this.state.currentIndex}
               timeout={1000}
-              classNames="fade"
-            >
+              classNames="fade">
               {content}
             </CSSTransition>
           </TransitionGroup>
@@ -121,5 +84,5 @@ class App extends Component {
   }
 }
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
